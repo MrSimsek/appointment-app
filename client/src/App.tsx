@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { uuid } from "uuidv4";
+
+import AppointmentList from "./components/AppointmentList";
+import {
+  Appointment,
+  AppointmentsProvider,
+} from "./context/appointmentsContext";
+
+const DATA: Appointment[] = [
+  { id: uuid(), title: "Eye Check", date: new Date() },
+  { id: uuid(), title: "Skin Care", date: new Date() },
+  { id: uuid(), title: "Check-Up", date: new Date() },
+  { id: uuid(), title: "Eye Check", date: new Date() },
+  { id: uuid(), title: "Eye Check", date: new Date() },
+];
 
 function App() {
+  const [appointments, setAppointments] = React.useState<Appointment[]>(DATA);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="max-w-lg mx-auto p-2">
+      <AppointmentsProvider value={{ appointments, setAppointments }}>
+        <AppointmentList />
+      </AppointmentsProvider>
     </div>
   );
 }
